@@ -1,4 +1,4 @@
-# eksasmensprojekt-2g
+# eksamensprojekt-2g
 Gustas og Cornelius eksamensprojekt
 
 Ready, set, bet!:
