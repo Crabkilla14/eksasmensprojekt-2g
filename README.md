@@ -9,8 +9,8 @@ Vi valgte dette fordi det er nemt at glemme informationer når du skal lave din 
 Vores program er henrettet til folk som interresere sig for basketball og skal bruge information om spilleren.
 
 Krav:
-Programmet skal printe billed og nyttig information om spillerne.
-Programmet skal have en overskuelig menu.
-Programmet skal åbne informationen i en seperat konsol med et fedt layout.
-Programmet skal kunne hive inforamtion ud af API'et som du vælger at søge efter (fx. hold, point, statistiker)
+Programmet skal printe billed og nyttig information om spillerne.  
+Programmet skal have en overskuelig menu.  
+Programmet skal åbne informationen i en seperat konsol med et fedt layout.  
+Programmet skal kunne hive inforamtion ud af API'et som du vælger at søge efter (fx. hold, point, statistiker)  
 
