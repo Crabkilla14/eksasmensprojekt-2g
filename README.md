@@ -8,10 +8,10 @@ Vi valgte dette fordi det er nemt at glemme informationer når du skal lave din 
 
 Vores program er henrettet til folk som interresere sig for basketball og skal bruge information om spilleren.
 
-| Krav:                                                                                                             	|
+| Krav: (S = Skal med, N = Nice to have)                                                                                            |
 |-------------------------------------------------------------------------------------------------------------------	|
-| Programmet skal printe billed og nyttig information om spillerne.                                                 	|
-| Programmet skal have en overskuelig menu.                                                                         	|
-| Programmet skal åbne informationen i en seperat konsol med et nemt layout.                                        	|
-| Programmet skal kunne hive information ud af API'et som du vælger at søge efter (fx. hold, ppg, statistiker osv.) 	|  
+|S : Programmet skal printe billed og den tilhørende information om spillerne.                                                 	|
+|N : Programmet skal have en basic menu.                                                                         	|
+|S : Programmet skal åbne informationen i en seperat konsol med et nemt layout.                                        	|
+|S : Programmet skal kunne hive information ud af API'et som du vælger at søge efter (fx. hold, ppg, statistiker osv.) 	|  
 
