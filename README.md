@@ -12,6 +12,6 @@ Vores program er henrettet til folk som interresere sig for basketball og skal b
 |-------------------------------------------------------------------------------------------------------------------	|
 | Programmet skal printe billed og nyttig information om spillerne.                                                 	|
 | Programmet skal have en overskuelig menu.                                                                         	|
-| Programmet skal åbne informationen i en seperat konsol med et fedt layout.                                        	|
+| Programmet skal åbne informationen i en seperat konsol med et nemt layout.                                        	|
 | Programmet skal kunne hive information ud af API'et som du vælger at søge efter (fx. hold, ppg, statistiker osv.) 	|  
 
