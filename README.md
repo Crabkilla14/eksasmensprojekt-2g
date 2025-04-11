@@ -8,10 +8,11 @@ Vi valgte dette fordi det er nemt at glemme informationer når du skal lave din 
 
 Vores program er henrettet til folk som interresere sig for basketball og skal bruge information om spilleren.
 ## Kravspecifikation
-| Krav: (S = Skal med, N = Nice to have)                                                                                            |
-|-------------------------------------------------------------------------------------------------------------------	|
-|S : Programmet skal printe billed og den tilhørende information om spillerne.                                                 	|
-|N : Programmet skal have en basic menu.                                                                         	|
-|S : Programmet skal åbne informationen i en seperat konsol med et nemt layout.                                        	|
-|S : Programmet skal kunne hive information ud af API'et som du vælger at søge efter (fx. hold, ppg, statistiker osv.) 	|  
+| Titel | Beskrivelse | Prioritet |
+|-----------|-----------|-----------|
+| Information   |  Printe billede af valgt spiller/hold og anden tinhørende information | MVP |
+| Menu | Basic menu  | Nice to have |
+| Console | Åbner en seperat konsol som programmet kører i | MVP |
+| Search | Proggramet skal kunne søge relevant information ift. søgning | MVP |
+
 
