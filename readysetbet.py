@@ -1,88 +1,103 @@
 import requests
+import webbrowser
 from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
-from PIL import Image
-from io import BytesIO
-import webbrowser
-import os
 
-console = Console()
 API_URL = "https://www.balldontlie.io/api/v1"
+console = Console()
 
 def main_menu():
     while True:
-        console.print(Panel("🏀 [bold yellow]Ready, Set, Bet! - NBA Info Tool[/bold yellow]", expand=False))
-        console.print("1. Søg efter spiller")
-        console.print("2. Vis hold")
-        console.print("3. Afslut")
-        choice = input("\nVælg et nummer: ")
+        console.clear()
+        console.print(Panel("[bold blue]🏀 Ready, Set, Bet! - NBA Info Explorer[/bold blue]"))
+        console.print("[1] Søg efter spiller")
+        console.print("[2] Vis alle NBA-hold")
+        console.print("[3] Afslut\n")
 
-        if choice == "1":
-            search_player()
-        elif choice == "2":
-            show_teams()
-        elif choice == "3":
-            console.print("Farvel 👋")
+        valg = input("Vælg en mulighed: ").strip()
+        if valg == "1":
+            søg_spiller()
+        elif valg == "2":
+            vis_hold()
+        elif valg == "3":
+            console.print("\n[green]Tak for spillet![/green] 👋")
             break
         else:
-            console.print("[red]Ugyldigt valg. Prøv igen.[/red]")
+            console.print("[red]Ugyldigt valg. Prøv igen.[/red]\n")
+            input("Tryk Enter for at fortsætte...")
 
-def search_player():
-    name = input("Indtast spillerens navn: ")
-    response = requests.get(f"{API_URL}/players", params={"search": name})
-    players = response.json()["data"]
+def søg_spiller():
+    console.clear()
+    navn = input("Indtast spillerens navn (f.eks. LeBron): ").strip()
 
-    if not players:
-        console.print("[red]Ingen spillere fundet.[/red]")
-        return
-
-    player = players[0]  # vælg første resultat
-    player_id = player["id"]
-
-    # Hent stats
-    stats_response = requests.get(f"{API_URL}/season_averages", params={"player_ids[]": player_id})
-    stats = stats_response.json()["data"]
-    stats_data = stats[0] if stats else {}
-
-    # Lav visning
-    table = Table(title=f"{player['first_name']} {player['last_name']} - Info")
-
-    table.add_column("Felt", style="cyan", no_wrap=True)
-    table.add_column("Værdi", style="magenta")
-
-    table.add_row("Hold", player['team']['full_name'])
-    table.add_row("Position", player['position'] or "Ukendt")
-    table.add_row("Højde", f"{player['height_feet'] or '?'}'{player['height_inches'] or '?'}")
-    table.add_row("Vægt", f"{player['weight_pounds'] or '?'} lbs")
-
-    for key in ['pts', 'reb', 'ast', 'stl', 'blk']:
-        table.add_row(key.upper(), str(stats_data.get(key, "N/A")))
-
-    console.print(table)
-
-    # Prøv at åbne billede (brug nba.com som billedeksempel)
-    fake_img_url = f"https://nba-players.herokuapp.com/players/{player['last_name'].lower()}/{player['first_name'].lower()}"
     try:
-        webbrowser.open(fake_img_url)
-        console.print(f"[green]Åbner billede i browser: {fake_img_url}[/green]")
-    except:
-        console.print("[yellow]Kunne ikke åbne billede.[/yellow]")
+        response = requests.get(f"{API_URL}/players", params={"search": navn})
 
-def show_teams():
+        if response.status_code != 200:
+            console.print(f"[red]Fejl fra API: {response.status_code}[/red]")
+            input("Tryk Enter for at vende tilbage...")
+            return
+
+        data = response.json().get("data", [])
+        if not data:
+            console.print("[red]Ingen spillere fundet med det navn.[/red]")
+            input("Tryk Enter for at vende tilbage...")
+            return
+
+        spiller = data[0]
+        id = spiller['id']
+        stats_response = requests.get(f"{API_URL}/season_averages", params={"player_ids[]": id})
+        stats = stats_response.json().get("data", [])
+
+        table = Table(title=f"{spiller['first_name']} {spiller['last_name']} - Info")
+        table.add_column("Felt", style="cyan")
+        table.add_column("Værdi", style="magenta")
+
+        table.add_row("Hold", spiller['team']['full_name'])
+        table.add_row("Position", spiller['position'] or "Ukendt")
+        table.add_row("Højde", f"{spiller['height_feet'] or '?'}'{spiller['height_inches'] or '?'}")
+        table.add_row("Vægt", f"{spiller['weight_pounds'] or '?'} lbs")
+
+        if stats:
+            s = stats[0]
+            table.add_row("PPG", str(s.get("pts", "N/A")))
+            table.add_row("AST", str(s.get("ast", "N/A")))
+            table.add_row("REB", str(s.get("reb", "N/A")))
+            table.add_row("STL", str(s.get("stl", "N/A")))
+            table.add_row("BLK", str(s.get("blk", "N/A")))
+        else:
+            table.add_row("Stats", "Ingen tilgængelige stats for denne sæson.")
+
+        console.print(table)
+
+        # Åbn billede
+        navn_url = f"{spiller['last_name'].lower()}/{spiller['first_name'].lower()}"
+        fake_img_url = f"https://nba-players.herokuapp.com/players/{navn_url}"
+        webbrowser.open(fake_img_url)
+        console.print(f"[blue]Åbner billede i browser: {fake_img_url}[/blue]")
+
+    except Exception as e:
+        console.print(f"[red]Noget gik galt: {e}[/red]")
+
+    input("\nTryk Enter for at gå tilbage til menuen...")
+
+
+def vis_hold():
+    console.clear()
     response = requests.get(f"{API_URL}/teams")
     teams = response.json()["data"]
 
     table = Table(title="NBA Hold")
+    table.add_column("ID", style="cyan")
+    table.add_column("Holdnavn", style="green")
+    table.add_column("By", style="magenta")
 
-    table.add_column("ID", style="cyan", no_wrap=True)
-    table.add_column("Holdnavn", style="magenta")
-    table.add_column("By", style="green")
-
-    for team in teams:
-        table.add_row(str(team["id"]), team["full_name"], team["city"])
+    for hold in teams:
+        table.add_row(str(hold['id']), hold['full_name'], hold['city'])
 
     console.print(table)
+    input("\nTryk Enter for at gå tilbage til menuen...")
 
 if __name__ == "__main__":
     main_menu()
