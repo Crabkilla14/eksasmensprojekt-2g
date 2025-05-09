@@ -1,17 +1,98 @@
-# eksamensprojekt-2g
-Gustas og Cornelius eksamensprojekt
+# Ready, Set, Bet!
+Gustas og Cornelius
 
-Ready, set, bet!:
-Vi tager udgangspunkt i en NBA(National Basketball Asociation) API (https://www.balldontlie.io/) som du kan søge op på hvis du er i tvivl om noget information, vi vil have den til at give statistiker og informationer om den givne basketball spiller.
+## Kort projektbeskrivelse
+Vores projekt er en Python-applikation, der bruger den offentlige NBA API (balldontlie.io) til at hente og vise spillerinformation og statistikker. Applikationen er rettet mod NBA-fans og gamblere, som hurtigt skal bruge data til at vælge spillere til deres parlay eller fantasy-hold.
 
-Vi valgte dette fordi det er nemt at glemme informationer når du skal lave din parlay og det vil vi hjælpe med så du kan vinde alle dine penge tilbage og fodre din familie.
+## Kravspecifikation
 
-Vores program er henrettet til folk som interresere sig for basketball og skal bruge information om spilleren.
+| Krav                                                                 | 
+|----------------------------------------------------------------------|
+| Programmet viser billeder og info om spillere                        | 
+| Programmet har en overskuelig menu                                   | 
+| Programmet viser information i separat konsol med flot layout        |      
+| Programmet henter stats via brugerinput (fx navn, hold, ppg osv.)    |      
 
-| Krav:                                                                                                             	|
-|-------------------------------------------------------------------------------------------------------------------	|
-| Programmet skal printe billed og nyttig information om spillerne.                                                 	|
-| Programmet skal have en overskuelig menu.                                                                         	|
-| Programmet skal åbne informationen i en seperat konsol med et fedt layout.                                        	|
-| Programmet skal kunne hive information ud af API'et som du vælger at søge efter (fx. hold, ppg, statistiker osv.) 	|  
+## Programbeskrivelse
+Applikationen består af tre dele:
+1. Menu, hvor brugeren kan vælge at søge efter spiller eller hold.
+2. Kommunikation med API'en for at hente relevante data.
+3. Visning af data i konsollen med et overskueligt og farverigt layout (ved hjælp af `rich`-modulet).
+
+## Rollefordeling
+- Gustas: API-integration, spillerstatistikker, menu
+- Cornelius: Layout, data-præsentation, README og test
+
+## Kilder og ressourcer
+- [balldontlie.io API](https://www.balldontlie.io/)
+- Python-dokumentation
+- `rich`-modul til flot terminaloutput
+
+## Redegørelse for brug af AI
+Vi brugte AI (ChatGPT) til at brainstorme programstruktur, forbedre synopsisen og finde gode måder at formatere output med Rich-biblioteket.
+
+## Konklusion
+Projektet løste problemet med hurtigt at få adgang til relevant NBA-data, når man f.eks. laver en parlay. Det var lærerigt at arbejde med API'er og præsentere data på en brugervenlig måde.
+
+## Pseudokode
+START
+
+VIS "Ready, Set, Bet!" menu
+VIS "1. Søg spiller"
+VIS "2. Afslut"
+
+INPUT bruger_valg
+
+IF bruger_valg == "1":
+    INPUT spiller_navn
+    KALD get_player_data(spiller_navn)
+    
+    HVIS spiller findes:
+        KALD display_player_info(data)
+    ELLERS:
+        VIS "Spiller ikke fundet."
+
+ELLERS HVIS bruger_valg == "2":
+    VIS "Farvel"
+    AFSLUT PROGRAM
+
+STOP
+
+  
+   
+## Rutediagrammer+-------------------------------+
+|       Start programmet        |
++---------------+---------------+
+                |
+                v
+      +--------------------+
+      | Vis hovedmenu      |
+      | 1. Søg spiller      |
+      | 2. Afslut          |
+      +---------+----------+
+                |
+      +---------+----------+
+      |                    |
+      v                    v
++------------+     +------------------+
+| Indtast    |     | Luk programmet   |
+| spillernavn|     +------------------+
++------------+
+       |
+       v
++-------------------------+
+| Hent data fra API       |
+| (player + stats)        |
++-------------------------+
+       |
+       v
++-------------------------+
+| Viser spillerdata med   |
+| flot layout (Rich)      |
++-------------------------+
+       |
+       v
++-------------------------+
+| Gå tilbage til menu     |
++-------------------------+
 
