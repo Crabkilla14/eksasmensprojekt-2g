@@ -57,3 +57,7 @@ ELLERS HVIS bruger_valg == "2":
     AFSLUT PROGRAM
 
 STOP
+
+## Rutediagram
+
+![Rutediagram](Untitled.jpg)
